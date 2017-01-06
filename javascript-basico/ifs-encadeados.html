@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ifs encadeados</title>
+    </head>
+    <body>
+        Exercicios extra de ifs encadeados
+        <script>
+        
+    
+        //se não cair na condição anterior, calcule a porcentagem de bonus e imprima "o bonus é 15%" e o valor calculado  no console
+               // se não cair em nenhuma condição anterior é porque o salário não foi informado ou ele é zero
+
+        var salarioMensal = 1500;
+
+        if (salarioMensal > 0 && salarioMensal < 1000) {
+
+            var bonus = salarioMensal * 0.05;
+
+            console.log("o bonus e 5%")
+            console.log(bonus);
+        
+        } else if(salarioMensal < 2000) {
+
+            var bonus = salarioMensal * 0.10;
+
+            console.log("o bonus e 10%")
+            console.log(bonus);
+
+        } else {
+            
+            var bonus = salarioMensal * 0.15;
+
+            console.log("o bonus e 15%")
+            console.log(bonus);
+
+        }
+
+        </script>
+    </body>
+</html>

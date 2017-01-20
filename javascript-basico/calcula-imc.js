@@ -1,29 +1,38 @@
 
-var nome = document.getElementById("nome-1").textContent;
-var peso = document.getElementById("peso-1").textContent;
-var altura = document.getElementById("altura-1").textContent;
+var pacientesTrs = document.getElementsByClassName("paciente");
 
-console.log(nome);
-console.log(peso);
-console.log(altura);
-
-var passiente = {
-	nome : nome,
-	peso : peso,
-	altura : altura
-};
-
-var idDoImc = document.getElementById("imc-1");
-
-if (passiente.altura > 0) {
-
-	var imc = passiente.peso / (passiente.altura * passiente.altura);
+for (var i = 0; i < pacientesTrs.length; i++) {
 	
-	console.log(imc);
+	var trAtual = pacientesTrs[i];
 
-	idDoImc.textContent = imc;
+	var nome = trAtual.getElementsByClassName("info-nome")[0];
+	var peso = trAtual.getElementsByClassName("info-peso")[0];
+	var altura = trAtual.getElementsByClassName("info-altura")[0];
+
+	var paciente = {
+		nome : nome.textContent,
+		peso : peso.textContent,
+		altura : altura.textContent
+	};
+
+	if (paciente.altura > 0) {
+
+		var imc = trAtual.getElementsByClassName("info-imc")[0];
 	
-} else {
-	console.log("Altura invalida para o calculo do IMC.");
+		imc.textContent = paciente.peso / (paciente.altura * paciente.altura);
+
+	} else {
+		console.log("Altura invalida para o calculo do IMC.");
+	}
+	
+}
+
+var frutas = ["banana","maçã", "uva", "laranja", "pêssego", "limão", "melão", "melancia"];
+var posicao = 0;
+
+while( posicao < frutas.length ){
+    var frutaAtual = frutas[posicao];
+    console.log(frutaAtual);
+    posicao++;
 }
 

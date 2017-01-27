@@ -1,38 +1,39 @@
 
 var pacientesTrs = document.getElementsByClassName("paciente");
 
-for (var i = 0; i < pacientesTrs.length; i++) {
-	
-	var trAtual = pacientesTrs[i];
+percorreArray(pacientesTrs, imprimeEModificaTdDeImc);
 
-	var nome = trAtual.getElementsByClassName("info-nome")[0];
-	var peso = trAtual.getElementsByClassName("info-peso")[0];
-	var altura = trAtual.getElementsByClassName("info-altura")[0];
+function imprimeEModificaTdDeImc(trPaciente) {
+		
+	var paciente = montaPaciente(trPaciente);
+
+	var trImc = trPaciente.getElementsByClassName("info-imc")[0];
+		
+	var imc = paciente.pegaImc();
+		
+	trImc.textContent = imc;
+	
+}
+
+function montaPaciente(pacienteTr) {
+
+	var nome = pacienteTr.getElementsByClassName("info-nome")[0];
+	var peso = pacienteTr.getElementsByClassName("info-peso")[0];
+	var altura = pacienteTr.getElementsByClassName("info-altura")[0];
 
 	var paciente = {
 		nome : nome.textContent,
 		peso : peso.textContent,
-		altura : altura.textContent
-	};
+		altura : altura.textContent,
+		pegaImc : function(){
+			if (this.altura > 0) {
+				return this.peso / (this.altura * this.altura);
+			} else {
+				console.log("Altura invalida para o calculo do IMC.");
+			}
+		}
+	};	
 
-	if (paciente.altura > 0) {
+	return paciente;
 
-		var imc = trAtual.getElementsByClassName("info-imc")[0];
-	
-		imc.textContent = paciente.peso / (paciente.altura * paciente.altura);
-
-	} else {
-		console.log("Altura invalida para o calculo do IMC.");
-	}
-	
 }
-
-var frutas = ["banana","maçã", "uva", "laranja", "pêssego", "limão", "melão", "melancia"];
-var posicao = 0;
-
-while( posicao < frutas.length ){
-    var frutaAtual = frutas[posicao];
-    console.log(frutaAtual);
-    posicao++;
-}
-

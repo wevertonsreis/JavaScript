@@ -1,14 +1,17 @@
+var botao = document.getElementById("calcula-imcs");
 
-var pacientesTrs = document.getElementsByClassName("paciente");
+botao.addEventListener("click", function(){
 
-percorreArray(pacientesTrs, imprimeEModificaTdDeImc);
+	var pacientesTrs = document.getElementsByClassName("paciente");
+	percorreArray(pacientesTrs, imprimeEModificaTdDeImc);
+
+});
+
 
 function imprimeEModificaTdDeImc(trPaciente) {
 		
 	var paciente = montaPaciente(trPaciente);
-
 	var trImc = trPaciente.getElementsByClassName("info-imc")[0];
-		
 	var imc = paciente.pegaImc();
 		
 	trImc.textContent = imc;

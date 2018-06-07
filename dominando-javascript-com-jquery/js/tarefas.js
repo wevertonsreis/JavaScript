@@ -76,4 +76,19 @@ $(function(){
 		$(".tarefa-item").click(onTarefaItemClick);
 	}
 
+	var servico = "http://localhost:9090/api/tarefas/";
+
+	$.getJSON(servico)
+		.done(function(tarefas){
+
+			$(tarefas).each(function(pos, tarefa){
+				console.log(tarefa);
+				addTarefa(tarefa.texto);
+			});
+			
+		})
+		.fail(function(data){
+			alert("Falha ao buscar as tarefas: " + data.responseText);
+		});
+
 });

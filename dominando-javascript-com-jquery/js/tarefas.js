@@ -1,4 +1,22 @@
-$(function(){
+
+var servico = "http://localhost:9090/api/tarefas/";
+
+$(function() {
+
+	$.getJSON(servico)
+		.done(carregarTarefasDone)
+		.fail(carregarTarefasFail);
+
+	function carregarTarefasDone(tarefas) {
+		$(tarefas).each(function(pos, tarefa) {
+			addTarefa(tarefa);
+		});
+	}
+
+	function carregarTarefasFail(data) {
+		alert("Falha ao buscar as tarefas: " + data.responseText);
+	}
+
 	var $lastClicked;
 
 	$("#tarefa").keydown(onTarefaKeydown);
@@ -60,13 +78,37 @@ $(function(){
 
 	function onTarefaKeydown (event) {
 		if (event.which === 13) {
-			addTarefa($("#tarefa").val());
+			var tarefa = {
+				texto: $("#tarefa").val(),
+				usuario: "teste"
+			};
+
+			$.ajax({
+				type: "POST",
+				url: servico,
+				data: JSON.stringify(tarefa),
+				contentType: 'application/json',
+				dataType: "json"
+			})
+			.done(salvarTarefaDone)
+			.fail(salvarTarefaFail);	
+
 		}
 	}
 
-	function addTarefa (text) {
+	function salvarTarefaDone(data) {
+		alert("Tarefa salva com sucesso.");
+		addTarefa(data);
+	}
+
+	function salvarTarefaFail(data) {
+		alert("Falha ao salvar a tarefa: " + data.responseText);
+	}
+
+	function addTarefa (tarefa) {
 		var $tarefa = $("<div />").addClass("tarefa-item")
-			.append($("<div />").addClass("tarefa-texto").text(text))
+			.append($("<input type='hidden' value='" + tarefa.id +"' />").addClass("tarefa-id"))
+			.append($("<div />").addClass("tarefa-texto").text(tarefa.texto))
 			.append($("<div />").addClass("tarefa-delete"))
 			.append($("<div />").addClass("clear"));
 		
@@ -75,20 +117,5 @@ $(function(){
 		$(".tarefa-delete").click(onTarefaDeleteClick);
 		$(".tarefa-item").click(onTarefaItemClick);
 	}
-
-	var servico = "http://localhost:9090/api/tarefas/";
-
-	$.getJSON(servico)
-		.done(function(tarefas){
-
-			$(tarefas).each(function(pos, tarefa){
-				console.log(tarefa);
-				addTarefa(tarefa.texto);
-			});
-			
-		})
-		.fail(function(data){
-			alert("Falha ao buscar as tarefas: " + data.responseText);
-		});
 
 });
